@@ -154,6 +154,11 @@ public class Binary {
       Object), or if this and other represent equal binary values
       =============================================*/
     public boolean equals( Object other ) {
+	if (! (other instanceof Binary) )
+	    throw new ClassCastException("object not Binary");
+
+	if ( other == null ) 
+	    throw new NullPointerException("object null");
 
 	//aliases?
 	boolean ret = this == other;
@@ -175,6 +180,13 @@ public class Binary {
       negative integer if this<input, positive integer otherwise
       =============================================*/
     public int compareTo( Object other ) {
+
+	if (! (other instanceof Binary) )
+	    throw new ClassCastException("object not Binary");
+
+	if ( other == null ) 
+	    throw new NullPointerException("object null");
+
 	//if other not a Binary
 	if (! (other instanceof Binary)) {
 	    throw new ClassCastException("Error.");
