@@ -1,7 +1,7 @@
-//Team orange-bananas -- Arpita Abrol, Jannie Li
+//Jannie Li
 //APCS1 pd10
-//HW41 -- In America, the Driver Sits on the Left
-//2015-12-04
+//HW45 -- Come Together
+//2015-12-9
 
 public class Rational implements Comparable{
 

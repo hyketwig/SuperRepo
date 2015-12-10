@@ -1,7 +1,7 @@
 //Jannie Li
 //APCS pd10
-//HW43 -- This or That
-//2015-12-7
+//HW45 -- Come Together
+//2015-12-9
 
 
 //skeleton file for class Binary
@@ -68,13 +68,14 @@ public class Binary {
     public static String decToBin( int n ) {
         String ret = "";
 
-	//add remainder with 2 to ret backwards until n == 0
-	while (n != 0) {
+	//add remainder with 2 to ret backwards until n = 0 or 1
+	//then just add it on
+	while (n > 1) {
 	    ret = (n % 2) + ret;
 	    n /= 2;
 	}
 
-	return ret;
+	return n + ret;
     }
 
 
@@ -90,7 +91,7 @@ public class Binary {
       =====================================*/
     public static String decToBinR( int n ) {	
 	//until n == 0, add remainder with 2 backward and recurse on quotient	
-	if (n <= 0) {
+	if (n <= 1) {
 	    return n + "";
 	    //this will also make the ints into a String: n + ""
 	}
@@ -154,11 +155,11 @@ public class Binary {
       Object), or if this and other represent equal binary values
       =============================================*/
     public boolean equals( Object other ) {
-	if (! (other instanceof Binary) )
-	    throw new ClassCastException("object not Binary");
 
-	if ( other == null ) 
-	    throw new NullPointerException("object null");
+	//both Binary objects? if not, error!
+	if (!(other instanceof Binary) )  {
+	    throw new ClassCastException("Not a Binary object.");
+	}
 
 	//aliases?
 	boolean ret = this == other;
@@ -181,17 +182,11 @@ public class Binary {
       =============================================*/
     public int compareTo( Object other ) {
 
-	if (! (other instanceof Binary) )
-	    throw new ClassCastException("object not Binary");
-
-	if ( other == null ) 
-	    throw new NullPointerException("object null");
-
-	//if other not a Binary
-	if (! (other instanceof Binary)) {
-	    throw new ClassCastException("Error.");
+	//both Binary objects? if not, error!
+	if (!(other instanceof Binary) )  {
+	    throw new ClassCastException("Not a Binary object.");
 	}
-
+	
 	//return difference
 	return this._decNum - ((Binary)other)._decNum;
     }
@@ -244,10 +239,6 @@ public class Binary {
 	  System.out.println( decToBinR(31) ); //should be 11111
 	  System.out.println( binToDecR("10101") ); //should be 21
 	  System.out.println( binToDecR("11111") ); //should be 31
-
-
-	  Object b7 = new Object();
-	  System.out.println( b6.compareTo(b7) );
 	  /*=========================================	  
 	  =========================================*/
 

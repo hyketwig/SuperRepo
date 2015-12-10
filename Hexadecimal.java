@@ -1,7 +1,7 @@
-//Team 6112FFE -- Jannie Li, Nick Ng
+//Jannie Li
 //APCS1 pd10
-//HW44 -- This or That or Fourteen Other Things
-//2015-12-8
+//HW45 -- Come Together
+//2015-12-9
 
 
 public class Hexadecimal {

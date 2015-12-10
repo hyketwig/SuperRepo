@@ -1,7 +1,7 @@
-//Team orange-bananas -- Jannie Li, Arpita Abrol
+//Jannie Li
 //APCS pd10
-//HW42 -- Array of Titanium
-//2015-12-04
+//HW45 -- Come Together
+//2015-12-9
 
 /*****************************
  * SKELETON for
