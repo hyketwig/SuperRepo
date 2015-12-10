@@ -25,7 +25,7 @@ public class Hexadecimal {
     /*=====================================
       overloaded constructor
       pre:  n >= 0
-      post: sets _decNum to n, _hexNum to equiv string of bits
+      post: sets _decNum to n, _hexNum to equiv
       =====================================*/
     public Hexadecimal( int n ) {
         _decNum = n;
@@ -35,7 +35,7 @@ public class Hexadecimal {
 
     /*=====================================
       overloaded constructor
-      pre:  s is String representing non-negative binary number
+      pre:  s is String representing non-negative hexadecimal number
       post: sets _hexNum to input, _decNum to decimal equiv
       =====================================*/
     public Hexadecimal( String s ) {
@@ -47,7 +47,7 @@ public class Hexadecimal {
     /*=====================================
       String toString() -- returns String representation of this Object
       pre:  n/a
-      post: returns String of 1's and 0's representing value of this Object
+      post: returns String (hexadecimals) representing value of this Object
       =====================================*/
     public String toString() { 
 	return _hexNum;  
@@ -55,14 +55,9 @@ public class Hexadecimal {
 
 
     /*=====================================
-      String decToHex(int) -- converts base-10 input to binary
+      String decToHex(int) -- converts base-10 input to base-16
       pre:  n >= 0
-      post: returns String of bits
-      eg  decToHex(0) -> "0"
-      decToHex(1) -> "1"
-      decToHex(2) -> "10"
-      decToHex(3) -> "11"
-      decToHex(14) -> "1110"
+      post: returns String of hexdigits
       =====================================*/
     public static String decToHex( int n ) {
         String ret = "";
@@ -79,17 +74,13 @@ public class Hexadecimal {
 
 
     /*=====================================
-      String decToHexR(int) -- converts base-10 input to binary, recursively
+      String decToHexR(int) -- converts base-10 input to base-16, recursively
       pre:  n >= 0
-      post: returns String of bits
-      eg  decToHexR(0) -> "0"
-      decToHexR(1) -> "1"
-      decToHexR(2) -> "10"
-      decToHexR(3) -> "11"
-      decToHexR(14) -> "1110"
+      post: returns String of hexdigits
       =====================================*/
-    public static String decToHexR( int n ) {	
-	//until n == 0, add remainder with 2 backward and recurse on quotient	
+    public static String decToHexR( int n ) {
+	
+	//until n == 0, add HEXDIGITS number w index (n's remainder with 16)	
 	if (n < 10) {
 	    return n + "";
 	    //this will also make the ints into a String: n + ""
@@ -100,15 +91,9 @@ public class Hexadecimal {
 
 
     /*=====================================
-      String hexToDec(String) -- converts base-10 input to binary
-      pre:  s represents non-negative binary number
+      String hexToDec(String) -- converts base-10 input to base-16
+      pre:  s represents non-negative hexadecimal number
       post: returns decimal equivalent as int
-      eg  
-      hexToDec("0") -> 0
-      hexToDec("1") -> 1
-      hexToDec("10") -> 2
-      hexToDec("11") -> 3
-      hexToDec("1110") -> 14
       =====================================*/
     public static int hexToDec( String s ) {
         int dec = 0;
@@ -125,15 +110,9 @@ public class Hexadecimal {
 
 
     /*=====================================
-      String hexToDecR(String) -- converts base-10 input to binary, recursively
-      pre:  s represents non-negative binary number
+      String hexToDecR(String) -- converts base-10 input to base-16, recursively
+      pre:  s represents non-negative hexadecimal number
       post: returns decimal equivalent as int
-      eg  
-      hexToDecR("0") -> 0
-      hexToDecR("1") -> 1
-      hexToDecR("10") -> 2
-      hexToDecR("11") -> 3
-      hexToDecR("1110") -> 14
       =====================================*/
     public static int hexToDecR( String s ) { 
         if (s.length() == 0) {
@@ -151,13 +130,18 @@ public class Hexadecimal {
       boolean equals(Object) -- tells whether 2 Objs are equivalent
       pre:  other is an instance of class Hexadecimal
       post: Returns true if this and other are aliases (pointers to same 
-      Object), or if this and other represent equal binary values
+      Object), or if this and other represent equal hexadecimal values
       =============================================*/
     public boolean equals( Object other ) {
 
+	//null object? error!
+	if (other == null) {
+	    throw new NullPointerException(".equals() Input null");
+	}
+
 	//both Hexadecimal objects? if not, error!
 	if (!(other instanceof Hexadecimal)){
-	    throw new ClassCastException (".equals() Input not a hex");
+	    throw new ClassCastException(".equals() Input not a hex");
 	}
 	
 	//aliases?
@@ -180,6 +164,11 @@ public class Hexadecimal {
       negative integer if this<input, positive integer otherwise
       =============================================*/
     public int compareTo( Object other ) {
+
+	//null object? error!
+	if (other == null) {
+	    throw new NullPointerException(".compareTo() Input null");
+	}
 	
 	//both Hexadecimal objects? if not, error!
 	if (!(other instanceof Hexadecimal)){
