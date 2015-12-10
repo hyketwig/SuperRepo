@@ -156,9 +156,14 @@ public class Binary {
       =============================================*/
     public boolean equals( Object other ) {
 
+	//null? error!
+	if (other == null) {
+	    throw new NullPointerException("Null object in .equals().");
+	}
+
 	//both Binary objects? if not, error!
 	if (!(other instanceof Binary) )  {
-	    throw new ClassCastException("Not a Binary object.");
+	    throw new ClassCastException("Not a Binary object in .equals().");
 	}
 
 	//aliases?
@@ -182,9 +187,15 @@ public class Binary {
       =============================================*/
     public int compareTo( Object other ) {
 
+	//null? error!
+	//(placed before instanceof bc null would set that off too...?)
+	if (other == null) {
+	    throw new NullPointerException("Null object in .compareTo().");
+	}
+
 	//both Binary objects? if not, error!
 	if (!(other instanceof Binary) )  {
-	    throw new ClassCastException("Not a Binary object.");
+	    throw new ClassCastException("Not a Binary object in .compareTo().");
 	}
 	
 	//return difference
@@ -239,6 +250,17 @@ public class Binary {
 	  System.out.println( decToBinR(31) ); //should be 11111
 	  System.out.println( binToDecR("10101") ); //should be 21
 	  System.out.println( binToDecR("11111") ); //should be 31
+
+
+	  System.out.println("\nErrors...");
+
+	  Object b7 = new Object();
+
+	  System.out.println( b6.equals(b7) );
+	  //System.out.println( b6.compareTo(b7) );
+
+	  //System.out.println( b6.equals(null) );
+	  //System.out.println( b6.compareTo(null) );
 	  /*=========================================	  
 	  =========================================*/
 
