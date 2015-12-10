@@ -6,7 +6,7 @@
 
 //skeleton file for class Binary
 
-public class Binary {
+public class Binary implements Comparable {
 
     private int _decNum;
     private String _binNum;

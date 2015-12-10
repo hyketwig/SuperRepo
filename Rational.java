@@ -3,7 +3,7 @@
 //HW45 -- Come Together
 //2015-12-9
 
-public class Rational implements Comparable{
+public class Rational implements Comparable {
 
     // INSTANCE VARS
     // ===========================================
@@ -68,12 +68,23 @@ public class Rational implements Comparable{
 
 
     //overrides equals method
-    public boolean equals(Object val){
-    	boolean retVal = this == val;
+    public boolean equals(Object o){
+
+	//null? error!
+	if (o == null) {
+	    throw new NullPointerException(".equals() Input null");
+	}
+
+	//both Rational objects? if not, error!
+	if (! (o instanceof Rational) ) {
+	    throw new ClassCastException(".equals() Input not a Rational");
+	}
+	
+    	boolean retVal = this == o;
     	if (!retVal){
-	    if (val instanceof Rational){
-		retVal = this.num == ((Rational)val).num
-		    && this.den == ((Rational)val).den;
+	    if (o instanceof Rational){
+		retVal = this.num == ((Rational)o).num
+		    && this.den == ((Rational)o).den;
 	    }
 	}
     	return retVal;
@@ -133,9 +144,17 @@ public class Rational implements Comparable{
 
     // returns diff of two Rational objects
     public int compareTo( Object o ) {
-	if (!(o instanceof Rational)){
-	    return 111;
+
+	//null? error!
+	if (o == null) {
+	    throw new NullPointerException(".compareTo() Input null");
 	}
+
+	//both Rational objects? if not, error!
+	if (! (o instanceof Rational) ) {
+	    throw new ClassCastException(".compareTo() Input not a Rational");
+	}
+
 	Rational num = new Rational();
 	num = (Rational)o;
 	double callingNum = this.floatValue();

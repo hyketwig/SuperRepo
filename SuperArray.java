@@ -18,7 +18,7 @@
  *  remove item (while maintaining "left-justification")
  *****************************/
 
-public class SuperArray implements ListInt {
+public class SuperArray {
  
     //~~~~~INSTANCE VARS~~~~~
     //underlying container, or "core" of this data structure:
@@ -177,7 +177,7 @@ public class SuperArray implements ListInt {
 	//============================================
 	//PHASE II
 	
-	ListInt mayfield = new SuperArray();
+	SuperArray mayfield = new SuperArray();
 	System.out.println("Printing empty SuperArray mayfield...");
 	System.out.println(mayfield);
 
@@ -211,24 +211,6 @@ public class SuperArray implements ListInt {
 
 	System.out.println("Printing SuperArray mayfield's size...");
 	System.out.println(mayfield.size());
-
-	System.out.println("Testing that ensuring space works out");
-        ListInt grr = new SuperArray();
-	
-	for (int i = 1 ; i < 12 ; i++) {
-	    grr.add(i);
-	}
-	
-	System.out.println(grr);
-
-	// ========== PHASE III ADDITONS =========
-
-	System.out.println("Testing grr's set method");
-	System.out.println(grr.set( 0, 52 ));
-	System.out.println(grr);
-
-	System.out.println("Testing grr's get method");
-	System.out.println(grr.get( 0 ));
 
 
     }//end main

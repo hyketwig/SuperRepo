@@ -4,7 +4,7 @@
 //2015-12-9
 
 
-public class Hexadecimal {
+public class Hexadecimal implements Comparable {
 
     private final static String HEXDIGITS = "0123456789ABCDEF";
     private int _decNum;
