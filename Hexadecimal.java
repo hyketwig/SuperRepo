@@ -10,6 +10,12 @@ public class Hexadecimal implements Comparable {
     private int _decNum;
     private String _hexNum;
 
+    /*=====================================
+      ACCESSORS
+      =====================================*/
+    public int getValue() {
+	return _decNum;
+    } 
 
     /*=====================================
       default constructor
@@ -158,26 +164,44 @@ public class Hexadecimal implements Comparable {
 
 
     /*=============================================
-      int compareTo(Object) -- tells which of two Hexadecimal objects is greater
-      pre:  other is instance of class Hexadecimal
+      int compareTo(Object) -- tells which of two Comparable objects is greater
+      pre:  other is instance of class Comparable
       post: Returns 0 if this Object is equal to the input Object,
       negative integer if this<input, positive integer otherwise
       =============================================*/
     public int compareTo( Object other ) {
 
-	//null object? error!
+	//null? error!
+	//(placed before instanceof bc null would set that off too...?)
 	if (other == null) {
 	    throw new NullPointerException(".compareTo() Input null");
 	}
-	
-	//both Hexadecimal objects? if not, error!
-	if (!(other instanceof Hexadecimal)){
-	    throw new ClassCastException (".compareTo() Input not a hex");
+
+	//both Comparable objects? if not, error!
+	if (!(other instanceof Comparable) )  {
+	    throw new ClassCastException(".compareTo() Input not a Comparable");
 	}
 	
 	//return difference
-	return this._decNum - ((Hexadecimal)other)._decNum;
+	//check for what kind of Comparable to retrieve value
+	if (other instanceof Rational) {
+	    float diff = this.getValue() - ((Rational)other).getValue();
+	    if (diff == 0) {
+		return 0;
+	    }
+	    else if (diff > 0) {
+		return 1;
+	    }
+	    return -1;
+	}
+	else if (other instanceof Binary) {
+	    return this._decNum - ((Binary)other).getValue();
+	}
+	else {
+	    return this._decNum - ((Hexadecimal)other).getValue();
+	}
     }
+
 
 
     //main method for testing

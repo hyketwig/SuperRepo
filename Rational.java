@@ -9,8 +9,16 @@ public class Rational implements Comparable {
     // ===========================================
     private int num;
     private int den;
-    
 
+    
+    /*=====================================
+      ACCESSORS
+      =====================================*/
+    public float getValue() {
+	return floatValue();
+    }
+
+    
     // CONSTRUCTORS
     // ===========================================
     //default constructor
@@ -34,7 +42,7 @@ public class Rational implements Comparable {
 
     // METHODS
     // ===========================================
-	
+
     //prints rational number with newlines
     public String toString(){
 	return num + "/" + den;
@@ -142,33 +150,49 @@ public class Rational implements Comparable {
     }
 
 
-    // returns diff of two Rational objects
-    public int compareTo( Object o ) {
+    /*=============================================
+      int compareTo(Object) -- tells which of two Comparable objects is greater
+      pre:  other is instance of class Comparable
+      post: Returns 0 if this Object is equal to the input Object,
+      negative integer if this<input, positive integer otherwise
+      =============================================*/
+    public int compareTo( Object other ) {
 
 	//null? error!
-	if (o == null) {
+	//(placed before instanceof bc null would set that off too...?)
+	if (other == null) {
 	    throw new NullPointerException(".compareTo() Input null");
 	}
 
-	//both Rational objects? if not, error!
-	if (! (o instanceof Rational) ) {
-	    throw new ClassCastException(".compareTo() Input not a Rational");
+	//both Comparable objects? if not, error!
+	if (!(other instanceof Comparable) )  {
+	    throw new ClassCastException(".compareTo() Input not a Comparable");
 	}
+	
+	//return difference
+	//check for what kind of Comparable to retrieve value
+	float diff;
+	
+	if (other instanceof Rational) {
+	    diff = this.getValue() - ((Rational)other).getValue();
 
-	Rational num = new Rational();
-	num = (Rational)o;
-	double callingNum = this.floatValue();
-	double param = num.floatValue();
-	if (callingNum == param) {
-	    return 0;
 	}
-	else if (callingNum > param) {
-	    return 1;
+	else if (other instanceof Binary) {
+	    diff = this.getValue() - ((Binary)other).getValue();
 	}
 	else {
-	    return -1;
+	    diff = this.getValue() - ((Hexadecimal)other).getValue();
 	}
+	
+	if (diff == 0) {
+	    return 0;
+	}
+	else if (diff > 0) {
+	    return 1;
+	}
+	return -1;
     }
+
 
     public static void main(String[] args){
 

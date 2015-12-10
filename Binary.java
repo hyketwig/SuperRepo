@@ -11,6 +11,12 @@ public class Binary implements Comparable {
     private int _decNum;
     private String _binNum;
 
+    /*=====================================
+      ACCESSORS
+      =====================================*/
+    public int getValue() {
+	return _decNum;
+    }
 
     /*=====================================
       default constructor
@@ -117,7 +123,8 @@ public class Binary implements Comparable {
 	//multiply each digit by 2^index (proper power of 2)
 	//add them for dec
 	for (int i = 0 ; i < s.length() ; i++) {
-	    dec += Integer.parseInt(s.substring(i,i+1)) * Math.pow(2,i);
+	    dec += Integer.parseInt(s.substring(i,i+1))
+		* Math.pow(2,s.length() - 1 - i);
 	}
 
 	return dec;
@@ -161,7 +168,7 @@ public class Binary implements Comparable {
 	    throw new NullPointerException(".equals() Input null");
 	}
 
-	//both Binary objects? if not, error!
+	//both Comparable objects? if not, error!
 	if (!(other instanceof Binary) )  {
 	    throw new ClassCastException(".equals() Input not a Binary");
 	}
@@ -172,7 +179,6 @@ public class Binary implements Comparable {
 	//values equal?
 	if (!ret) {
 	    ret = this._decNum == ((Binary)other)._decNum; 
-	    //and/or... this._binNum.equals((Binary)other)._binNum;
 	}
 	
 	return ret;
@@ -180,8 +186,8 @@ public class Binary implements Comparable {
 
 
     /*=============================================
-      int compareTo(Object) -- tells which of two Binary objects is greater
-      pre:  other is instance of class Binary
+      int compareTo(Object) -- tells which of two Comparable objects is greater
+      pre:  other is instance of class Comparable
       post: Returns 0 if this Object is equal to the input Object,
       negative integer if this<input, positive integer otherwise
       =============================================*/
@@ -193,13 +199,29 @@ public class Binary implements Comparable {
 	    throw new NullPointerException(".compareTo() Input null");
 	}
 
-	//both Binary objects? if not, error!
-	if (!(other instanceof Binary) )  {
-	    throw new ClassCastException(".compareTo() Input not a Binary");
+	//both Comparable objects? if not, error!
+	if (!(other instanceof Comparable) )  {
+	    throw new ClassCastException(".compareTo() Input not a Comparable");
 	}
 	
 	//return difference
-	return this._decNum - ((Binary)other)._decNum;
+	//check for what kind of Comparable to retrieve value
+	if (other instanceof Rational) {
+	    float diff = this.getValue() - ((Rational)other).getValue();
+	    if (diff == 0) {
+		return 0;
+	    }
+	    else if (diff > 0) {
+		return 1;
+	    }
+	    return -1;
+	}
+	else if (other instanceof Binary) {
+	    return this.getValue() - ((Binary)other).getValue();
+	}
+	else {
+	    return this.getValue() - ((Hexadecimal)other).getValue();
+	}
     }
 
 
@@ -247,9 +269,10 @@ public class Binary implements Comparable {
 	  System.out.println( b6._decNum ); //should be 7
 
 	  System.out.println( decToBinR(21) ); //should be 10101
-	  System.out.println( decToBinR(31) ); //should be 11111
+	  System.out.println( decToBinR(10) ); //should be 11111
 	  System.out.println( binToDecR("10101") ); //should be 21
 	  System.out.println( binToDecR("11111") ); //should be 31
+	  System.out.println( binToDec("1010") ); //should be 10
 
 
 	  System.out.println("\nErrors...");

@@ -22,7 +22,7 @@ public class SuperArray {
  
     //~~~~~INSTANCE VARS~~~~~
     //underlying container, or "core" of this data structure:
-    private int[] _data;
+    private Comparable[] _data;
 
     //position of last meaningful value
     private int _lastPos;
@@ -35,7 +35,7 @@ public class SuperArray {
     //default constructor – initializes 10-item array
     public SuperArray() 
     { 
-	_data = new int[10];
+	_data = new Comparable[10];
 	_lastPos = -1; //flag to indicate no lastpos yet
 	_size = 0;	
     }
@@ -60,7 +60,7 @@ public class SuperArray {
     //double capacity of this SuperArray
     private void expand() 
     { 
-	int[] temp = new int[ _data.length * 2 ];
+	Comparable[] temp = new Comparable[ _data.length * 2 ];
 	for( int i = 0; i < _data.length; i++ )
 	    temp[i] = _data[i];
 	_data = temp;
@@ -68,14 +68,14 @@ public class SuperArray {
 
 		
     //accessor -- return value at specified index
-    public int get( int index ) { return _data[index]; }
+    public Comparable get( int index ) { return _data[index]; }
 
 		
     //mutator -- set value at index to newVal, 
     //           return old value at index
-    public int set( int index, int newVal ) 
+    public Comparable set( int index, Comparable newVal ) 
     { 
- 	int temp = _data[index];
+ 	Comparable temp = _data[index];
 	_data[index] = newVal;
 	return temp;
     }
@@ -83,7 +83,7 @@ public class SuperArray {
 
     // ~~~~~~~~~~~~~~ PHASE II ~~~~~~~~~~~~~~
     //adds an item after the last item
-    public void add( int newVal )
+    public void add( Comparable newVal )
     {
 	//make sure there's room
         if (_data.length == _size) {
@@ -99,7 +99,7 @@ public class SuperArray {
 
     //inserts an item at index
     //shifts existing elements to the right
-    public void add( int index, int newVal )
+    public void add( int index, Comparable newVal )
     {
 	//make sure there's room
         if (_data.length == _size) {
@@ -149,69 +149,118 @@ public class SuperArray {
     }
 
 
+    //======== HW 45 ADDITIONS ========
+
+    //returns index of first instance of Comparable
+    //returns -1 if not found
+    public int linSearch(Comparable num) {
+
+	//check if each item is equal to num
+	for (int i = 0; i < this._size; i++) {
+	    if (this.get(i).compareTo(num) == 0) {
+		return i;
+	    }
+	}
+
+	return -1;
+	
+    }
+
+
+    //returns whether SuperArray sorted least to greatest
+    public boolean isSorted() {
+
+	//check if next item is less than item here
+	//if true, not sorted
+	for (int i = 0; i < this._size - 1; i++) {
+	    if (this.get(i).compareTo(this.get(i+1)) < 0) {
+		return false;
+	    }
+	}
+
+	return true;
+	
+    }
+
+
+
+    
     //main method for testing
     public static void main( String[] args ) 
     {
+	
         SuperArray curtis = new SuperArray();
+	Binary bin1 = new Binary(22);
+	Binary bin2 = new Binary("101");
+	Rational rat1 = new Rational(1,3);
+	Rational rat2 = new Rational(1,9);
+	Hexadecimal hex1 = new Hexadecimal(39);
+	Hexadecimal hex2 = new Hexadecimal("1A");
+	
+	
 	System.out.println("Printing empty SuperArray curtis...");
 	System.out.println(curtis);
-
-	for( int i = 0; i < curtis._data.length; i++ ) {
-	    curtis.set(i,i*2);
-	    curtis._size++; //necessary bc no add() method yet
-	}
-
+	
+        curtis.add(bin1);
+	curtis.add(bin2);
+	curtis.add(rat1);
+	curtis.add(rat2);
+	curtis.add(hex1);
+	curtis.add(hex2);
+	
 	System.out.println("Printing populated SuperArray curtis...");
 	System.out.println(curtis);
-
-	System.out.println("testing get()...");
-	for( int i = 0; i < curtis._size; i++ ) {
-	    System.out.print( "item at index" + i + ":\t" );
-	    System.out.println( curtis.get(i) );
-	}
-
-	System.out.println("Expanded SuperArray curtis:");
-	curtis.expand();
+       
+	curtis.remove(3);
+	System.out.println("Printing SuperArray curtis post-remove...");
+	System.out.println(curtis);
+	curtis.remove(3);
+	System.out.println("Printing SuperArray curtis post-remove...");
 	System.out.println(curtis);
 
-	//============================================
-	//PHASE II
+
+	Hexadecimal grr = new Hexadecimal("1FF");
 	
-	SuperArray mayfield = new SuperArray();
-	System.out.println("Printing empty SuperArray mayfield...");
-	System.out.println(mayfield);
+	curtis.add(3,grr);
+	System.out.println("Printing SuperArray curtis post-insert...");
+	System.out.println(curtis);
+	curtis.add(2,grr);
+	System.out.println("Printing SuperArray curtis post-insert...");
+	System.out.println(curtis);
+	curtis.add(1,new Hexadecimal("1FF"));
+	System.out.println("Printing SuperArray curtis post-insert...");
+	System.out.println(curtis);
 
-	mayfield.add(5);
-	mayfield.add(4);
-	mayfield.add(3);
-	mayfield.add(2);
-	mayfield.add(1);
+	System.out.println("Printing SuperArray curtis's size...");
+	System.out.println(curtis.size());
 
-	System.out.println("Printing populated SuperArray mayfield...");
-	System.out.println(mayfield);
+	
+	//===== testing HW45 methods =====
+	System.out.println("printing SuperArray curtis's search for grr...");
+	System.out.println(curtis.linSearch(grr)); //should be 1
 
-	mayfield.remove(3);
-	System.out.println("Printing SuperArray mayfield post-remove...");
-	System.out.println(mayfield);
-	mayfield.remove(3);
-	System.out.println("Printing SuperArray mayfield post-remove...");
-	System.out.println(mayfield);
-        
-	mayfield.add(3,99);
-	System.out.println("Printing SuperArray mayfield post-insert...");
-	System.out.println(mayfield);
-	mayfield.add(2,88);
-	System.out.println("Printing SuperArray mayfield post-insert...");
-	System.out.println(mayfield);
-	mayfield.add(1,77);
-	System.out.println("Printing SuperArray mayfield post-insert...");
-	System.out.println(mayfield);
+	curtis.add(0,new Hexadecimal("1FF"));
 
-	// =========== extras ===========
+	System.out.println("Printing SuperArray curtis...");
+	System.out.println(curtis);
+	
+	System.out.println("printing SuperArray curtis's search for grr...");
+	System.out.println(curtis.linSearch(grr)); //should be 0
 
-	System.out.println("Printing SuperArray mayfield's size...");
-	System.out.println(mayfield.size());
+	System.out.println("printing SuperArray curtis's search for a Binary...");
+	System.out.println(curtis.linSearch(new Binary("1010"))); //should be -1
 
+	System.out.println("Printing whether SuperArray curtis is sorted...");
+	System.out.println(curtis.isSorted()); //should be false
+
+	System.out.println("Printing whether SuperArray boo is sorted...");
+	SuperArray boo = new SuperArray();
+	boo.add(new Hexadecimal());
+	boo.add(new Rational());
+	boo.add(new Binary());
+
+	System.out.println(boo.isSorted()); //should be true
+	
 
     }//end main
 		
