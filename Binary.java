@@ -158,12 +158,12 @@ public class Binary {
 
 	//null? error!
 	if (other == null) {
-	    throw new NullPointerException("Null object in .equals().");
+	    throw new NullPointerException(".equals() Input null");
 	}
 
 	//both Binary objects? if not, error!
 	if (!(other instanceof Binary) )  {
-	    throw new ClassCastException("Not a Binary object in .equals().");
+	    throw new ClassCastException(".equals() Input not a Binary");
 	}
 
 	//aliases?
@@ -190,12 +190,12 @@ public class Binary {
 	//null? error!
 	//(placed before instanceof bc null would set that off too...?)
 	if (other == null) {
-	    throw new NullPointerException("Null object in .compareTo().");
+	    throw new NullPointerException(".compareTo() Input null");
 	}
 
 	//both Binary objects? if not, error!
 	if (!(other instanceof Binary) )  {
-	    throw new ClassCastException("Not a Binary object in .compareTo().");
+	    throw new ClassCastException(".compareTo() Input not a Binary");
 	}
 	
 	//return difference
